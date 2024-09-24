@@ -1,8 +1,10 @@
+import GameBoard from './components/GameBoard';
+
 function App() {
   return (
     <main>
       <h1>Olletho</h1>
-      <div id="board"></div>
+      <GameBoard />
     </main>
   );
 }
