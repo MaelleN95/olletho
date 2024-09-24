@@ -7,11 +7,11 @@
   height: 100%;
   border: 1px solid #000;
   cursor: pointer;
-  background-color: green;
+  background-color: #61ac4a;
 }
 
 .cell:hover {
-  background-color: lightgreen;
+  background-color: rgb(187, 244, 187);
 }
 
 .cell.cell-black::after {

@@ -1,6 +1,6 @@
 import '../styles/cell.css';
 
-function cell({ cellValue }) {
+function cell({ cellValue, onClick }) {
   // determine the class name for the cell based on its value
   let cellClassName = 'cell';
   if (cellValue === 1) {
@@ -9,7 +9,7 @@ function cell({ cellValue }) {
     cellClassName += ' cell-white';
   }
 
-  return <div className={cellClassName}></div>;
+  return <div className={cellClassName} onClick={onClick}></div>;
 }
 
 export default cell;
