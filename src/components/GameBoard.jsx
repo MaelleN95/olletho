@@ -15,6 +15,9 @@ function GameBoard() {
   const [lastMove, setLastMove] = useState(null);
   const [flippedPieces, setFlippedPieces] = useState([]);
 
+  /**
+   * Initialize the board with the starting pieces
+   */
   const initializeBoard = () => {
     const newBoardState = boardState.map((row) => row.slice());
     newBoardState[3][3] = 2;
@@ -68,6 +71,11 @@ function GameBoard() {
     initializeBoard();
   }, []);
 
+  /**
+   *  Check if the board is full
+   * @param {Array} boardState The current state of the board
+   * @returns {boolean} True if the board is full, false otherwise
+   */
   const isBoardFull = (boardState) => {
     for (let row = 0; row < 8; row++) {
       for (let col = 0; col < 8; col++) {
@@ -79,6 +87,11 @@ function GameBoard() {
     return true;
   };
 
+  /**
+   * Check if the game is over
+   * @param {Array} boardState The current state of the board
+   * @returns {boolean} True if the game is over, false otherwise
+   * */
   const checkGameOver = (boardState) => {
     if (isBoardFull(boardState)) {
       console.log('Game Over');
@@ -87,10 +100,24 @@ function GameBoard() {
     return false; // La partie continue
   };
 
+  /**
+   * Check if the cell is out of bounds
+   * @param {number} row The row index of the cell
+   * @param {number} col The column index of the cell
+   * @returns {boolean} True if the cell is out of bounds, false otherwise
+   */
   const isOutOfBounds = (row, col) => {
     return row < 0 || row > 7 || col < 0 || col > 7;
   };
 
+  /**
+   * Find valid directions for a given cell
+   * @param {number} row The row index of the cell
+   * @param {number} col The column index of the cell
+   * @param {number} player The player making the move
+   * @param {Array} boardState The current state of the board
+   * @returns {Array} An array of valid directions
+   */
   const findValidDirections = (row, col, player, boardState) => {
     let validDirections = [];
 
@@ -120,6 +147,15 @@ function GameBoard() {
     return validDirections;
   };
 
+  /**
+   * Find flippable pieces for a given direction
+   * @param {number} row The row index of the cell
+   * @param {number} col The column index of the cell
+   * @param {Array} direction The direction to check
+   * @param {number} player The player making the move
+   * @param {Array} boardState The current state of the board
+   * @returns {Array} An array of flippable pieces
+   */
   const findFlippablePiecesForOneDirection = (
     row,
     col,
@@ -155,14 +191,25 @@ function GameBoard() {
     return [];
   };
 
-  // Flip all the pieces on the board
+  /**
+   * Flip the pieces in the given directions
+   * @param {Array} newBoardState The new state of the board
+   * @param {Array} adversePiecesToFlip The pieces to flip
+   * @param {number} player The player making the move
+   */
   const flipPieces = (newBoardState, adversePiecesToFlip, player) => {
     adversePiecesToFlip.forEach(([row, col]) => {
       newBoardState[row][col] = player;
     });
   };
 
-  // The main function that checks if the move is valid
+  /**
+   * Check if the move is valid
+   * @param {number} row The row index of the cell where the move is made
+   * @param {number} col The column index of the cell where the move is made
+   * @param {number} player The player making the mov
+   * @returns {boolean} True if the move is valid, false otherwise
+   */
   const isValidMove = (row, col, player) => {
     // Check if the cell is empty
     if (boardState[row][col] !== 0) {

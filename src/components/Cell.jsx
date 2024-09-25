@@ -9,12 +9,14 @@ function cell({ cellValue, onClick, isLastMove, isFlipped }) {
     cellClassName += ' cell-white';
   }
 
+  // add the last-move class if the cell is the last move
   if (isLastMove) {
-    cellClassName += ' last-move'; // Ajouter une classe pour le dernier coup
+    cellClassName += ' last-move';
   }
 
+  // add the flipped class if the cell is flipped
   if (isFlipped) {
-    cellClassName += ' flipped'; // Ajouter une classe pour les pions retournés
+    cellClassName += ' flipped';
   }
   return <div className={cellClassName} onClick={onClick}></div>;
 }
