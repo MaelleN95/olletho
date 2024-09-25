@@ -23,9 +23,42 @@ function GameBoard() {
     newBoardState[4][4] = 2;
 
     // for testing
-    // newBoardState[4][5] = 2;
-    // newBoardState[2][2] = 2;
-    // newBoardState[1][1] = 1;
+    newBoardState[4][5] = 2;
+    newBoardState[2][2] = 2;
+    newBoardState[1][2] = 2;
+    newBoardState[0][2] = 1;
+    newBoardState[0][3] = 1;
+    newBoardState[0][4] = 1;
+    newBoardState[0][5] = 1;
+    newBoardState[0][6] = 1;
+    newBoardState[0][7] = 1;
+    newBoardState[1][7] = 1;
+    newBoardState[2][7] = 1;
+    newBoardState[3][7] = 1;
+    newBoardState[4][7] = 1;
+    newBoardState[5][7] = 1;
+    newBoardState[6][7] = 1;
+    newBoardState[7][7] = 1;
+    newBoardState[7][6] = 1;
+    newBoardState[7][5] = 1;
+    newBoardState[7][4] = 1;
+    newBoardState[7][3] = 1;
+    newBoardState[7][2] = 1;
+    newBoardState[7][1] = 1;
+    newBoardState[7][0] = 1;
+    newBoardState[6][0] = 1;
+    newBoardState[5][0] = 1;
+    newBoardState[4][0] = 1;
+    newBoardState[3][0] = 1;
+    newBoardState[2][0] = 1;
+    newBoardState[1][0] = 1;
+    newBoardState[1][1] = 2;
+    newBoardState[2][1] = 2;
+    newBoardState[3][1] = 2;
+    newBoardState[4][1] = 2;
+    newBoardState[5][1] = 2;
+    newBoardState[6][1] = 2;
+    newBoardState[6][2] = 2;
 
     setBoardState(newBoardState);
   };
@@ -35,110 +68,157 @@ function GameBoard() {
     initializeBoard();
   }, []);
 
-  // Create array of directions to check for valid moves
-  const directions = [
-    { row: -1, col: -1 }, // top left
-    { row: -1, col: 0 }, // top
-    { row: -1, col: 1 }, // top right
-    { row: 0, col: -1 }, // left
-    { row: 0, col: 1 }, // right
-    { row: 1, col: -1 }, // bottom left
-    { row: 1, col: 0 }, // bottom
-    { row: 1, col: 1 }, // bottom right
-  ];
-
-  /**
-   *  Check if the move is valid
-   * @param {Number} row  row index
-   * @param {Number} col  column index
-   * @param {Number} player  player number
-   * @returns   true if the move is valid, false otherwise
-   */
-  const isValidMove = (row, col, player) => {
-    // Check if the cell is empty
-    if (boardState[row][col] !== 0) {
-      console.log('Invalid move');
-      return false;
+  const isBoardFull = (boardState) => {
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        if (boardState[row][col] === 0) {
+          return false;
+        }
+      }
     }
+    return true;
+  };
 
-    // Check if a adverse piece touch the cell
-    let validDirection = [];
-    let newBoardState = boardState.map((row) => row.slice());
-    let newFlippedPieces = [];
+  const checkGameOver = (boardState) => {
+    if (isBoardFull(boardState)) {
+      console.log('Game Over');
+      return true;
+    }
+    return false; // La partie continue
+  };
 
-    // Check if there is a adverse piece in each direction
+  const isOutOfBounds = (row, col) => {
+    return row < 0 || row > 7 || col < 0 || col > 7;
+  };
+
+  const findValidDirections = (row, col, player, boardState) => {
+    let validDirections = [];
+
+    // Create array of directions to check for valid moves
+    const directions = [
+      { row: -1, col: -1 }, // top left
+      { row: -1, col: 0 }, // top
+      { row: -1, col: 1 }, // top right
+      { row: 0, col: -1 }, // left
+      { row: 0, col: 1 }, // right
+      { row: 1, col: -1 }, // bottom left
+      { row: 1, col: 0 }, // bottom
+      { row: 1, col: 1 }, // bottom right
+    ];
+
     directions.forEach(({ row: directionRow, col: directionCol }) => {
       let checkRow = row + directionRow;
       let checkCol = col + directionCol;
 
       if (
-        checkRow >= 0 &&
-        checkRow < 8 &&
-        checkCol >= 0 &&
-        checkCol < 8 &&
+        !isOutOfBounds(checkRow, checkCol) &&
         boardState[checkRow][checkCol] === 3 - player
-      )
-        validDirection.push([checkRow, checkCol]);
+      ) {
+        validDirections.push([directionRow, directionCol]);
+      }
+    });
+    return validDirections;
+  };
+
+  const findFlippablePiecesForOneDirection = (
+    row,
+    col,
+    direction,
+    player,
+    boardState
+  ) => {
+    const [directionRow, directionCol] = direction;
+    let currentRow = row + directionRow;
+    let currentCol = col + directionCol;
+    let piecesToFlip = [];
+
+    while (
+      !isOutOfBounds(currentRow, currentCol) &&
+      boardState[currentRow][currentCol] === 3 - player
+    ) {
+      // Add the adverse piece to the list of pieces to flip
+      piecesToFlip.push([currentRow, currentCol]);
+      // Move to the next cell in the direction
+      currentRow += directionRow;
+      currentCol += directionCol;
+    }
+
+    // If we find a piece of the player at the end of the direction, return flippable pieces
+    if (
+      !isOutOfBounds(currentRow, currentCol) &&
+      boardState[currentRow][currentCol] === player
+    ) {
+      return piecesToFlip;
+    }
+
+    // Otherwise, return an empty array
+    return [];
+  };
+
+  // Flip all the pieces on the board
+  const flipPieces = (newBoardState, adversePiecesToFlip, player) => {
+    adversePiecesToFlip.forEach(([row, col]) => {
+      newBoardState[row][col] = player;
+    });
+  };
+
+  // The main function that checks if the move is valid
+  const isValidMove = (row, col, player) => {
+    // Check if the cell is empty
+    if (boardState[row][col] !== 0) {
+      console.log('cell is not empty');
+      return false;
+    }
+
+    // Copy the board state
+    let newBoardState = boardState.map((row) => row.slice());
+    let newFlippedPieces = [];
+
+    // Find valid directions
+    const validDirections = findValidDirections(row, col, player, boardState);
+    // If there are no valid directions, the move is invalid
+    if (validDirections.length === 0) {
+      console.log('Invalid move, pas de directions valides');
+      return false;
+    }
+
+    // Check for flippable pieces in each valid direction
+    validDirections.forEach((direction) => {
+      const flippablePieces = findFlippablePiecesForOneDirection(
+        row,
+        col,
+        direction,
+        player,
+        boardState
+      );
+
+      if (flippablePieces.length > 0) {
+        newFlippedPieces.push(...flippablePieces);
+      }
     });
 
-    // If there is no adverse piece in any direction, the move is invalid
-    if (validDirection.length === 0) {
-      console.log('Invalid move');
-      return false;
+    // If there are pieces to flip, execute the move
+    if (newFlippedPieces.length > 0) {
+      // Place the player's piece on the board
+      newBoardState[row][col] = player;
+      // Flip the adverse pieces
+      flipPieces(newBoardState, newFlippedPieces, player);
+
+      // Update the game state
+      setPlayer(3 - player);
+      setLastMove([row, col]);
+      setFlippedPieces(newFlippedPieces);
+      setBoardState(newBoardState);
+
+      // Check if the game is over
+      if (checkGameOver(newBoardState)) {
+        console.log('Game Over');
+      }
+      return true;
     } else {
-      // If there is an adverse piece in any direction, check if the move is valid for each valid direction
-      validDirection.forEach(([validRowDirection, validColDirection]) => {
-        let adversePiecesToFlip = [];
-        // Create a copy of the direction to check
-        let checkRowDirection = validRowDirection - row;
-        let checkColDirection = validColDirection - col;
-        // Initialize the current row and column to the next cell in the direction
-        let currentRow = validRowDirection;
-        let currentCol = validColDirection;
-
-        // Check if, by continuing in the direction, we find other adverse pieces
-        while (
-          currentRow >= 0 &&
-          currentRow < 8 &&
-          currentCol >= 0 &&
-          currentCol < 8 &&
-          boardState[currentRow][currentCol] === 3 - player
-        ) {
-          // Add the adverse piece to the list of pieces to flip
-          adversePiecesToFlip.push([currentRow, currentCol]);
-          // Move to the next cell in the direction
-          currentRow += checkRowDirection;
-          currentCol += checkColDirection;
-        }
-        // If we find a piece of the player at the end of the direction, the move is valid
-        if (
-          currentRow >= 0 &&
-          currentRow < 8 &&
-          currentCol >= 0 &&
-          currentCol < 8 &&
-          boardState[currentRow][currentCol] === player
-        ) {
-          console.log('Valid move');
-          newBoardState[row][col] = player;
-
-          // Flip the adverse pieces
-          adversePiecesToFlip.forEach(([row, col]) => {
-            newBoardState[row][col] = player;
-            newFlippedPieces.push([row, col]);
-          });
-
-          // Change the player
-          setPlayer(3 - player);
-          setLastMove([row, col]);
-          setFlippedPieces(newFlippedPieces);
-        } else {
-          // If we don't find a piece of the player at the end of the direction, the move is invalid
-          adversePiecesToFlip = [];
-          console.log('Invalid move');
-        }
-      });
+      console.log('Invalid move, pas de pions à retourner');
+      return false;
     }
-    setBoardState(newBoardState);
   };
 
   return (
@@ -155,8 +235,9 @@ function GameBoard() {
                 lastMove && lastMove[0] === rowIndex && lastMove[1] === colIndex
               }
               isFlipped={flippedPieces.some(
-                ([flippedRow, flippedCol]) =>
-                  flippedRow === rowIndex && flippedCol === colIndex
+                ([flippedirectionRow, flippedirectionCol]) =>
+                  flippedirectionRow === rowIndex &&
+                  flippedirectionCol === colIndex
               )}
             />
           ))
