@@ -26,42 +26,42 @@ function GameBoard() {
     newBoardState[4][4] = 2;
 
     // for testing
-    newBoardState[4][5] = 2;
-    newBoardState[2][2] = 2;
-    newBoardState[1][2] = 2;
-    newBoardState[0][2] = 1;
-    newBoardState[0][3] = 1;
-    newBoardState[0][4] = 1;
-    newBoardState[0][5] = 1;
-    newBoardState[0][6] = 1;
-    newBoardState[0][7] = 1;
-    newBoardState[1][7] = 1;
-    newBoardState[2][7] = 1;
-    newBoardState[3][7] = 1;
-    newBoardState[4][7] = 1;
-    newBoardState[5][7] = 1;
-    newBoardState[6][7] = 1;
-    newBoardState[7][7] = 1;
-    newBoardState[7][6] = 1;
-    newBoardState[7][5] = 1;
-    newBoardState[7][4] = 1;
-    newBoardState[7][3] = 1;
-    newBoardState[7][2] = 1;
-    newBoardState[7][1] = 1;
-    newBoardState[7][0] = 1;
-    newBoardState[6][0] = 1;
-    newBoardState[5][0] = 1;
-    newBoardState[4][0] = 1;
-    newBoardState[3][0] = 1;
-    newBoardState[2][0] = 1;
-    newBoardState[1][0] = 1;
-    newBoardState[1][1] = 2;
-    newBoardState[2][1] = 2;
-    newBoardState[3][1] = 2;
-    newBoardState[4][1] = 2;
-    newBoardState[5][1] = 2;
-    newBoardState[6][1] = 2;
-    newBoardState[6][2] = 2;
+    // newBoardState[4][5] = 2;
+    // newBoardState[2][2] = 2;
+    // newBoardState[1][2] = 2;
+    // newBoardState[0][2] = 1;
+    // newBoardState[0][3] = 2;
+    // newBoardState[0][4] = 2;
+    // newBoardState[0][5] = 2;
+    // newBoardState[0][6] = 2;
+    // newBoardState[0][7] = 2;
+    // newBoardState[1][7] = 2;
+    // newBoardState[2][7] = 2;
+    // newBoardState[3][7] = 2;
+    // newBoardState[4][7] = 2;
+    // newBoardState[5][7] = 2;
+    // newBoardState[6][7] = 2;
+    // newBoardState[7][7] = 2;
+    // newBoardState[7][6] = 2;
+    // newBoardState[7][5] = 2;
+    // newBoardState[7][4] = 2;
+    // newBoardState[7][3] = 2;
+    // newBoardState[7][2] = 2;
+    // newBoardState[7][1] = 2;
+    // newBoardState[7][0] = 2;
+    // newBoardState[6][0] = 1;
+    // newBoardState[5][0] = 1;
+    // newBoardState[4][0] = 1;
+    // newBoardState[3][0] = 1;
+    // newBoardState[2][0] = 1;
+    // newBoardState[1][0] = 1;
+    // newBoardState[1][1] = 2;
+    // newBoardState[2][1] = 2;
+    // newBoardState[3][1] = 2;
+    // newBoardState[4][1] = 2;
+    // newBoardState[5][1] = 2;
+    // newBoardState[6][1] = 2;
+    // newBoardState[6][2] = 2;
 
     setBoardState(newBoardState);
   };
@@ -88,13 +88,54 @@ function GameBoard() {
   };
 
   /**
+   * Check if a player has any valid moves available
+   * @param {number} player The player to check
+   * @param {Array} boardState The current state of the board
+   * @returns {boolean} True if the player has at least one valid move, false otherwise
+   */
+  const canPlayerMakeMove = (player) => {
+    // for (let row = 0; row < 8; row++) {
+    //   for (let col = 0; col < 8; col++) {
+    //     if (player === 1 || player === 2) {
+    //       return true;
+    //     }
+    //   }
+    // }
+    return true;
+  };
+
+  const checkWinner = (boardState) => {
+    let blackPieces = 0;
+    let whitePieces = 0;
+
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        if (boardState[row][col] === 1) {
+          blackPieces++;
+        } else if (boardState[row][col] === 2) {
+          whitePieces++;
+        }
+      }
+    }
+
+    if (blackPieces > whitePieces) {
+      return ['black', blackPieces, whitePieces];
+    } else if (whitePieces > blackPieces) {
+      return ['white', blackPieces, whitePieces];
+    } else {
+      return ['draw', blackPieces, whitePieces];
+    }
+  };
+
+  /**
    * Check if the game is over
    * @param {Array} boardState The current state of the board
    * @returns {boolean} True if the game is over, false otherwise
    * */
   const checkGameOver = (boardState) => {
     if (isBoardFull(boardState)) {
-      console.log('Game Over');
+      return true;
+    } else if (!canPlayerMakeMove(1) && !canPlayerMakeMove(2)) {
       return true;
     }
     return false; // La partie continue
@@ -223,9 +264,10 @@ function GameBoard() {
 
     // Find valid directions
     const validDirections = findValidDirections(row, col, player, boardState);
+
     // If there are no valid directions, the move is invalid
     if (validDirections.length === 0) {
-      console.log('Invalid move, pas de directions valides');
+      console.log('Invalid move - no valid directions');
       return false;
     }
 
@@ -256,15 +298,41 @@ function GameBoard() {
       setLastMove([row, col]);
       setFlippedPieces(newFlippedPieces);
       setBoardState(newBoardState);
-
-      // Check if the game is over
-      if (checkGameOver(newBoardState)) {
-        console.log('Game Over');
-      }
       return true;
     } else {
-      console.log('Invalid move, pas de pions à retourner');
+      console.log('Invalid move - no pieces to flip');
       return false;
+    }
+  };
+
+  /**
+   * Process the move
+   * @param {number} row The row index of the cell where the move is made
+   * @param {number} col The column index of the cell where the move is made
+   */
+  const managePlayerMove = (row, col) => {
+    if (canPlayerMakeMove(player)) {
+      isValidMove(row, col, player, boardState);
+      // Check if the game is over
+      if (checkGameOver(boardState)) {
+        console.log('Game Over - Board is full');
+        const [winner, blackPieces, whitePieces] = checkWinner(boardState);
+        console.log('Winner is ', winner);
+        console.log('Black pieces: ', blackPieces);
+        console.log('White pieces: ', whitePieces);
+      }
+    } else if (!canPlayerMakeMove(1) && !canPlayerMakeMove(2)) {
+      console.log('Game Over - No valid moves for both players');
+      const [winner, blackPieces, whitePieces] = checkWinner(boardState);
+      console.log('Winner is ', winner);
+      console.log('Black pieces: ', blackPieces);
+      console.log('White pieces: ', whitePieces);
+    } else if (!canPlayerMakeMove(player)) {
+      console.log(
+        'No valid moves for player ',
+        player === 1 ? 'black' : 'white'
+      );
+      setPlayer(3 - player);
     }
   };
 
@@ -277,7 +345,7 @@ function GameBoard() {
             <Cell
               key={`${rowIndex}-${colIndex}`}
               cellValue={cellValue}
-              onClick={() => isValidMove(rowIndex, colIndex, player)}
+              onClick={() => managePlayerMove(rowIndex, colIndex, player)}
               isLastMove={
                 lastMove && lastMove[0] === rowIndex && lastMove[1] === colIndex
               }
