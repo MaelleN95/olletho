@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Cell from './Cell.jsx';
+import GameStatus from './GameStatus.jsx';
 import {
   initializeBoard,
   validMoves,
   flipPieces,
-  checkGameOver,
-  checkWinner,
+  checkEndGame,
   canPlayerMakeMove,
 } from '../logic/gameLogic';
 import '../styles/gameboard.css';
@@ -17,6 +17,9 @@ function GameBoard() {
   const [player, setPlayer] = useState(1); // Player 1 is black, player 2 is white
   const [lastMove, setLastMove] = useState(null);
   const [flippedPieces, setFlippedPieces] = useState([]);
+
+  const [message, setMessage] = useState('');
+  const [endGame, setEndGame] = useState(false);
 
   /**
    * Execute the move for the current player
@@ -66,6 +69,8 @@ function GameBoard() {
    * @param {number} col The column index where the player wants to move
    */
   const managePlayerMove = (row, col) => {
+    // Reset the message
+    setMessage('');
     // Try to execute the game logic for the current player
     const { moveExecuted, newBoardState } = executeMove(row, col, player);
 
@@ -73,14 +78,9 @@ function GameBoard() {
     if (moveExecuted) {
       const nextPlayer = 3 - player; // Switch to the other player
       // Check if the game is over
-      const gameOver = checkGameOver(newBoardState);
+      setEndGame(checkEndGame(newBoardState));
 
-      if (gameOver) {
-        console.log('Game Over');
-        const [winner, blackPieces, whitePieces] = checkWinner(newBoardState);
-        console.log('Winner is ', winner);
-        console.log('Black pieces: ', blackPieces);
-        console.log('White pieces: ', whitePieces);
+      if (endGame) {
         return;
       }
 
@@ -90,22 +90,27 @@ function GameBoard() {
         setPlayer(nextPlayer);
       } else if (canPlayerMakeMove(player, newBoardState)) {
         // If the next player can't move, keep the current player
-        console.log(
-          `Player ${
-            nextPlayer === 1 ? 'black' : 'white'
-          } has no valid moves. Player ${
-            player === 1 ? 'black' : 'white'
-          } continues.`
+        setMessage(
+          `Le joueur aux jetons ${
+            nextPlayer === 1 ? 'noir' : 'blanc'
+          } n'a aucun mouvement valide. Le joueur aux jetons ${
+            player === 1 ? 'noir' : 'blanc'
+          } continue.`
         );
       }
     } else {
-      console.log('Invalid move');
+      setMessage('Coup invalide.');
     }
   };
 
   return (
     <>
-      <p>C&apos;est au tour du joueur {player === 1 ? 'noir' : 'blanc'}</p>
+      <GameStatus
+        player={player}
+        endGame={endGame}
+        boardState={boardState}
+        message={message}
+      />
       <div id="board">
         {boardState.map((row, rowIndex) =>
           row.map((cellValue, colIndex) => (

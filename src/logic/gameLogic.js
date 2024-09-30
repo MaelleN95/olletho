@@ -3,15 +3,16 @@
  * @returns {Array<Array<number>>} The initialized board state
  */
 export const initializeBoard = () => {
-    const newBoardState = Array(8).fill().map(() => Array(8).fill(0));
-    newBoardState[3][3] = 2;
-    newBoardState[3][4] = 1;
-    newBoardState[4][3] = 1;
-    newBoardState[4][4] = 2;
-  
-    return newBoardState;
-  };
-  
+  const newBoardState = Array(8)
+    .fill()
+    .map(() => Array(8).fill(0));
+  newBoardState[3][3] = 2;
+  newBoardState[3][4] = 1;
+  newBoardState[4][3] = 1;
+  newBoardState[4][4] = 2;
+
+  return newBoardState;
+};
 
 /**
  *  Check if the board is full
@@ -67,11 +68,11 @@ export const checkWinner = (boardState) => {
   }
 
   if (blackPieces > whitePieces) {
-    return ['black', blackPieces, whitePieces];
+    return ['noir', blackPieces, whitePieces];
   } else if (whitePieces > blackPieces) {
-    return ['white', blackPieces, whitePieces];
+    return ['blanc', blackPieces, whitePieces];
   } else {
-    return ['draw', blackPieces, whitePieces];
+    return ['égalité', blackPieces, whitePieces];
   }
 };
 
@@ -80,7 +81,7 @@ export const checkWinner = (boardState) => {
  * @param {Array<Array<number>>} boardState The current state of the board
  * @returns {boolean} True if the game is over, false otherwise
  * */
-export const checkGameOver = (boardState) => {
+export const checkEndGame = (boardState) => {
   if (isBoardFull(boardState)) {
     return true;
   } else if (
@@ -256,4 +257,3 @@ export const validMoves = (row, col, player, boardState) => {
     return { validMove: false };
   }
 };
-
