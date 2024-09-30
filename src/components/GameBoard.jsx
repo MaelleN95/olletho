@@ -25,44 +25,6 @@ function GameBoard() {
     newBoardState[4][3] = 1;
     newBoardState[4][4] = 2;
 
-    // for testing
-    // newBoardState[4][5] = 2;
-    // newBoardState[2][2] = 2;
-    // newBoardState[1][2] = 2;
-    // newBoardState[0][2] = 1;
-    // newBoardState[0][3] = 2;
-    // newBoardState[0][4] = 2;
-    // newBoardState[0][5] = 2;
-    // newBoardState[0][6] = 2;
-    // newBoardState[0][7] = 2;
-    // newBoardState[1][7] = 2;
-    // newBoardState[2][7] = 2;
-    // newBoardState[3][7] = 2;
-    // newBoardState[4][7] = 2;
-    // newBoardState[5][7] = 2;
-    // newBoardState[6][7] = 2;
-    // newBoardState[7][7] = 2;
-    // newBoardState[7][6] = 2;
-    // newBoardState[7][5] = 2;
-    // newBoardState[7][4] = 2;
-    // newBoardState[7][3] = 2;
-    // newBoardState[7][2] = 2;
-    // newBoardState[7][1] = 2;
-    // newBoardState[7][0] = 2;
-    // newBoardState[6][0] = 1;
-    // newBoardState[5][0] = 1;
-    // newBoardState[4][0] = 1;
-    // newBoardState[3][0] = 1;
-    // newBoardState[2][0] = 1;
-    // newBoardState[1][0] = 1;
-    // newBoardState[1][1] = 2;
-    // newBoardState[2][1] = 2;
-    // newBoardState[3][1] = 2;
-    // newBoardState[4][1] = 2;
-    // newBoardState[5][1] = 2;
-    // newBoardState[6][1] = 2;
-    // newBoardState[6][2] = 2;
-
     setBoardState(newBoardState);
   };
 
@@ -103,7 +65,7 @@ function GameBoard() {
         }
       }
     }
-    return true;
+    return false;
   };
 
   /**
@@ -334,7 +296,7 @@ function GameBoard() {
 
     // If the move is invalid, do nothing
     if (!validMove) {
-      return { moveExecuted: false };
+      return { moveExecuted: false, newBoardState: boardState };
     }
 
     // Make a copy of the current board state
@@ -375,7 +337,7 @@ function GameBoard() {
 
       if (gameOver) {
         console.log('Game Over');
-        const [winner, blackPieces, whitePieces] = checkWinner(boardState);
+        const [winner, blackPieces, whitePieces] = checkWinner(newBoardState);
         console.log('Winner is ', winner);
         console.log('Black pieces: ', blackPieces);
         console.log('White pieces: ', whitePieces);
