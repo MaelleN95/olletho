@@ -8,28 +8,42 @@ function GameStatus({ player, endGame, boardState, message }) {
     if (winner === 'draw') {
       return (
         <div className="game-status">
-          <h2>Egalité !</h2>
-          <p>Nombre de jetons noirs : {numberOfBlackDisk}</p>
-          <p>Nombre de jetons blancs : {numberOfWhiteDisk}</p>
+          <p className="winner">Egalité !</p>
+          <div className="disk-count">
+            <p>
+              <span className="disk black-disk"></span> {numberOfBlackDisk}
+            </p>
+            <p>
+              <span className="disk white-disk"></span> {numberOfWhiteDisk}
+            </p>
+          </div>
         </div>
       );
     } else {
       return (
         <div className="game-status">
-          <h2>Le joueur aux jetons {winner} a gagné !</h2>
-          <p>Nombre de jetons noirs : {numberOfBlackDisk}</p>
-          <p>Nombre de jetons blancs : {numberOfWhiteDisk}</p>
+          <p className="winner">
+            Le joueur aux jetons <strong>{winner}</strong> a gagné !
+          </p>
+          <div className="disk-count">
+            <p>
+              <span className="disk black-disk"></span> {numberOfBlackDisk}
+            </p>
+            <p>
+              <span className="disk white-disk"></span> {numberOfWhiteDisk}
+            </p>
+          </div>
         </div>
       );
     }
   }
   return (
     <div className="game-status">
-      <p>
+      <p className="player-turn-info">
         C&apos;est au tour du joueur aux jetons :{' '}
-        {player === 1 ? 'noir' : 'blanc'}
+        <strong>{player === 1 ? 'noir' : 'blanc'}</strong>
       </p>
-      {message ? <p>{message}</p> : null}
+      {message ? <p className="message">{message}</p> : null}
     </div>
   );
 }

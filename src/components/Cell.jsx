@@ -1,5 +1,3 @@
-import '../styles/cell.css';
-
 function cell({ cellValue, onClick, isLastMove, isFlipped }) {
   // determine the class name for the cell based on its value
   let cellClassName = 'cell';

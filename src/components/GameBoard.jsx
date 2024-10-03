@@ -8,7 +8,6 @@ import {
   checkEndGame,
   canPlayerMakeMove,
 } from '../logic/gameLogic';
-import '../styles/gameboard.css';
 
 function GameBoard() {
   // Create the initial board state
