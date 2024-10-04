@@ -1,9 +1,8 @@
 import { checkWinner } from '../logic/gameLogic';
 
-function GameStatus({ player, endGame, boardState, message }) {
+function GameStatus({ player, whiteDisks, blackDisks, endGame, message }) {
   if (endGame) {
-    const [winner, numberOfBlackDisk, numberOfWhiteDisk] =
-      checkWinner(boardState);
+    const winner = checkWinner(blackDisks, whiteDisks);
 
     if (winner === 'draw') {
       return (
@@ -11,10 +10,10 @@ function GameStatus({ player, endGame, boardState, message }) {
           <p className="winner">Egalité !</p>
           <div className="disk-count">
             <p>
-              <span className="disk black-disk"></span> {numberOfBlackDisk}
+              <span className="disk black-disk"></span> {blackDisks}
             </p>
             <p>
-              <span className="disk white-disk"></span> {numberOfWhiteDisk}
+              <span className="disk white-disk"></span> {whiteDisks}
             </p>
           </div>
         </div>
@@ -27,10 +26,10 @@ function GameStatus({ player, endGame, boardState, message }) {
           </p>
           <div className="disk-count">
             <p>
-              <span className="disk black-disk"></span> {numberOfBlackDisk}
+              <span className="disk black-disk"></span> {blackDisks}
             </p>
             <p>
-              <span className="disk white-disk"></span> {numberOfWhiteDisk}
+              <span className="disk white-disk"></span> {whiteDisks}
             </p>
           </div>
         </div>
@@ -38,13 +37,23 @@ function GameStatus({ player, endGame, boardState, message }) {
     }
   }
   return (
-    <div className="game-status">
+    <>
+      <div className="game-status">
+        <div className="disk-count">
+          <p>
+            <span className="disk black-disk"></span> {blackDisks}
+          </p>
+          <p>
+            <span className="disk white-disk"></span> {whiteDisks}
+          </p>
+        </div>
+        {message ? <p className="message">{message}</p> : null}
+      </div>
       <p className="player-turn-info">
-        C&apos;est au tour du joueur aux jetons :{' '}
-        <strong>{player === 1 ? 'noir' : 'blanc'}</strong>
+        C&apos;est au tour du joueur aux jetons :
+        <strong> {player === 1 ? 'noir' : 'blanc'}</strong>
       </p>
-      {message ? <p className="message">{message}</p> : null}
-    </div>
+    </>
   );
 }
 

@@ -7,6 +7,7 @@ import {
   flipPieces,
   checkEndGame,
   canPlayerMakeMove,
+  countDisks,
 } from '../logic/gameLogic';
 
 function GameBoard() {
@@ -16,9 +17,12 @@ function GameBoard() {
   const [player, setPlayer] = useState(1); // Player 1 is black, player 2 is white
   const [lastMove, setLastMove] = useState(null);
   const [flippedPieces, setFlippedPieces] = useState([]);
+  const [hoverFlippedPieces, setHoverFlippedPieces] = useState([]);
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('Bienvenue !');
   const [endGame, setEndGame] = useState(false);
+  const [blackDisks, setBlackDisks] = useState(2);
+  const [whiteDisks, setWhiteDisks] = useState(2);
 
   /**
    * Execute the move for the current player
@@ -69,13 +73,22 @@ function GameBoard() {
    */
   const managePlayerMove = (row, col) => {
     // Reset the message
-    setMessage('');
+    setMessage('...');
     // Try to execute the game logic for the current player
     const { moveExecuted, newBoardState } = executeMove(row, col, player);
 
     // If the move was successful, attempt to switch to the other player
     if (moveExecuted) {
-      const nextPlayer = 3 - player; // Switch to the other player
+      // Switch to the other player
+      const nextPlayer = 3 - player;
+
+      // Update the disk count
+      setBlackDisks(countDisks(newBoardState)[0]);
+      setWhiteDisks(countDisks(newBoardState)[1]);
+
+      // Clear the potential flipped pieces
+      setHoverFlippedPieces([]);
+
       // Check if the game is over
       setEndGame(checkEndGame(newBoardState));
 
@@ -102,6 +115,18 @@ function GameBoard() {
     }
   };
 
+  const highlightPotentialFlips = (row, col) => {
+    const { validMove, flippedPieces } = validMoves(
+      row,
+      col,
+      player,
+      boardState
+    );
+    if (validMove) setHoverFlippedPieces(flippedPieces[0]);
+  };
+
+  const clearPotentialFlips = () => setHoverFlippedPieces([]);
+
   return (
     <>
       <GameStatus
@@ -109,6 +134,8 @@ function GameBoard() {
         endGame={endGame}
         boardState={boardState}
         message={message}
+        blackDisks={blackDisks}
+        whiteDisks={whiteDisks}
       />
       <div id="board">
         {boardState.map((row, rowIndex) =>
@@ -117,6 +144,8 @@ function GameBoard() {
               key={`${rowIndex}-${colIndex}`}
               cellValue={cellValue}
               onClick={() => managePlayerMove(rowIndex, colIndex, player)}
+              onHover={() => highlightPotentialFlips(rowIndex, colIndex)}
+              onLeave={clearPotentialFlips}
               isLastMove={
                 lastMove && lastMove[0] === rowIndex && lastMove[1] === colIndex
               }
@@ -124,6 +153,10 @@ function GameBoard() {
                 ([flippedirectionRow, flippedirectionCol]) =>
                   flippedirectionRow === rowIndex &&
                   flippedirectionCol === colIndex
+              )}
+              isHoveredFlipped={hoverFlippedPieces.some(
+                ([hoverRow, hoverCol]) =>
+                  hoverRow === rowIndex && hoverCol === colIndex
               )}
             />
           ))

@@ -15,6 +15,28 @@ export const initializeBoard = () => {
 };
 
 /**
+ *  Count the number of black and white disks on the board
+ * @param {Array<Array<number>>} boardState
+ * @returns  {Array<number>} An array containing the number of black and white disks
+ */
+export const countDisks = (boardState) => {
+  let blackDisks = 0;
+  let whiteDisks = 0;
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      if (boardState[row][col] === 1) {
+        blackDisks++;
+      } else if (boardState[row][col] === 2) {
+        whiteDisks++;
+      }
+    }
+  }
+
+  return [blackDisks, whiteDisks];
+};
+
+/**
  *  Check if the board is full
  * @param {Array<Array<number>>} boardState The current state of the board
  * @returns {boolean} True if the board is full, false otherwise
@@ -53,26 +75,13 @@ export const canPlayerMakeMove = (player, boardState) => {
  * @param {Array<Array<number>>} boardState The current state of the board
  * @returns {Array} An array containing the winner and the number of black and white pieces
  */
-export const checkWinner = (boardState) => {
-  let blackPieces = 0;
-  let whitePieces = 0;
-
-  for (let row = 0; row < 8; row++) {
-    for (let col = 0; col < 8; col++) {
-      if (boardState[row][col] === 1) {
-        blackPieces++;
-      } else if (boardState[row][col] === 2) {
-        whitePieces++;
-      }
-    }
-  }
-
-  if (blackPieces > whitePieces) {
-    return ['noir', blackPieces, whitePieces];
-  } else if (whitePieces > blackPieces) {
-    return ['blanc', blackPieces, whitePieces];
+export const checkWinner = (blackDisks, whiteDisks) => {
+  if (blackDisks > whiteDisks) {
+    return 'noir';
+  } else if (whiteDisks > blackDisks) {
+    return 'blanc';
   } else {
-    return ['égalité', blackPieces, whitePieces];
+    return 'draw';
   }
 };
 

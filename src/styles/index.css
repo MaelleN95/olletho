@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 
-@import '../styles/cell.css';
-@import '../styles/gameStatus.css';
-@import '../styles/gameboard.css';
+@import './cell.css';
+@import './gameStatus.css';
+@import './gameboard.css';
 
 :root {
   --green-board: #61ac4a;

@@ -1,4 +1,12 @@
-function cell({ cellValue, onClick, isLastMove, isFlipped }) {
+function cell({
+  cellValue,
+  onClick,
+  onHover,
+  onLeave,
+  isLastMove,
+  isFlipped,
+  isHoveredFlipped,
+}) {
   // determine the class name for the cell based on its value
   let cellClassName = 'cell';
   if (cellValue === 1) {
@@ -16,7 +24,19 @@ function cell({ cellValue, onClick, isLastMove, isFlipped }) {
   if (isFlipped) {
     cellClassName += ' flipped';
   }
-  return <div className={cellClassName} onClick={onClick}></div>;
+
+  // add the hovered-flipped class if the cell is hovered flipped
+  if (isHoveredFlipped) {
+    cellClassName += ' hovered-flipped';
+  }
+  return (
+    <div
+      className={cellClassName}
+      onClick={onClick}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    ></div>
+  );
 }
 
 export default cell;
