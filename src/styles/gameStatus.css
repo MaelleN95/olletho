@@ -6,8 +6,8 @@
   padding: 0.9rem;
   margin: 0.5rem 0;
   height: 110px;
-  background-color: #525252;
-  border-radius: 10px;
+  background-color: var(--secondary-background);
+  border-radius: 5px;
 }
 
 .game-status p {

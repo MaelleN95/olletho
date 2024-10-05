@@ -115,6 +115,11 @@ function GameBoard() {
     }
   };
 
+  /**
+   *  Highlight the potential flips for the current player
+   * @param {*} row  The row index where the player wants to move
+   * @param {*} col  The column index where the player wants to move
+   */
   const highlightPotentialFlips = (row, col) => {
     const { validMove, flippedPieces } = validMoves(
       row,
@@ -125,6 +130,9 @@ function GameBoard() {
     if (validMove) setHoverFlippedPieces(flippedPieces[0]);
   };
 
+  /**
+   * Clear the potential flips for the current player
+   */
   const clearPotentialFlips = () => setHoverFlippedPieces([]);
 
   return (

@@ -3,6 +3,7 @@
 @import './cell.css';
 @import './gameStatus.css';
 @import './gameboard.css';
+@import './rules.css';
 
 :root {
   --green-board: #61ac4a;
@@ -12,6 +13,8 @@
   --valid-cell: #cade5a;
   --flipped-disk: rgb(0, 103, 0);
   --background: #242424;
+  --secondary-background: #525252;
+  --title--background: #717171;
   --blue: #2a8bdb;
 }
 
@@ -27,6 +30,10 @@ main {
   margin: auto;
 }
 
+section {
+  margin: 2rem 0;
+}
+
 h1 {
   text-align: center;
   font-size: 3rem;
@@ -37,5 +44,5 @@ h1 {
 
 #game {
   max-width: 550px;
-  margin: auto;
+  margin: 1rem auto;
 }
