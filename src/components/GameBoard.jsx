@@ -73,7 +73,7 @@ function GameBoard() {
    */
   const managePlayerMove = (row, col) => {
     // Reset the message
-    setMessage('...');
+    setMessage('');
     // Try to execute the game logic for the current player
     const { moveExecuted, newBoardState } = executeMove(row, col, player);
 
@@ -170,6 +170,7 @@ function GameBoard() {
           ))
         )}
       </div>
+      {message ? <p className="message">{message}</p> : null}
     </>
   );
 }

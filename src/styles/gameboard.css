@@ -1,8 +1,8 @@
 #board {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  width: 550px;
-  height: 550px;
+  width: var(--board-size);
+  height: var(--board-size);
   margin: auto;
 }
 

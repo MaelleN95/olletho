@@ -1,6 +1,6 @@
 import { checkWinner } from '../logic/gameLogic';
 
-function GameStatus({ player, whiteDisks, blackDisks, endGame, message }) {
+function GameStatus({ player, whiteDisks, blackDisks, endGame }) {
   if (endGame) {
     const winner = checkWinner(blackDisks, whiteDisks);
 
@@ -47,7 +47,6 @@ function GameStatus({ player, whiteDisks, blackDisks, endGame, message }) {
             <span className="disk white-disk"></span> {whiteDisks}
           </p>
         </div>
-        {message ? <p className="message">{message}</p> : null}
       </div>
       <p className="player-turn-info">
         C&apos;est au tour du joueur aux jetons :

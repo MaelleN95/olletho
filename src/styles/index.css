@@ -16,6 +16,7 @@
   --secondary-background: #525252;
   --title--background: #717171;
   --blue: #2a8bdb;
+  --board-size: 500px;
 }
 
 body {
@@ -43,6 +44,6 @@ h1 {
 }
 
 #game {
-  max-width: 550px;
+  max-width: var(--board-size);
   margin: 1rem auto;
 }
