@@ -90,7 +90,7 @@ export const checkWinner = (blackDisks, whiteDisks) => {
  * @param {Array<Array<number>>} boardState The current state of the board
  * @returns {boolean} True if the game is over, false otherwise
  * */
-export const checkEndGame = (boardState) => {
+export const isEndGame = (boardState) => {
   if (isBoardFull(boardState)) {
     return true;
   } else if (
@@ -221,12 +221,12 @@ export const flipPieces = (newBoardState, adversePiecesToFlip, player) => {
 export const validMoves = (row, col, player, boardState) => {
   // Check if the cell is out of bounds
   if (isOutOfBounds(row, col)) {
-    return false;
+    return { validMove: false };
   }
 
   // Check if the cell is empty
   if (boardState[row][col] !== 0) {
-    return false;
+    return { validMove: false };
   }
 
   // Copy the board state

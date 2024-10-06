@@ -5,7 +5,7 @@ import {
   initializeBoard,
   validMoves,
   flipPieces,
-  checkEndGame,
+  isEndGame,
   canPlayerMakeMove,
   countDisks,
 } from '../logic/gameLogic';
@@ -90,7 +90,7 @@ function GameBoard() {
       setHoverFlippedPieces([]);
 
       // Check if the game is over
-      setEndGame(checkEndGame(newBoardState));
+      setEndGame(isEndGame(newBoardState));
 
       if (endGame) {
         return;
