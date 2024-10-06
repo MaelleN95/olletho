@@ -46,13 +46,15 @@ function Rules() {
       </p>
       <p>
         De plus, vous pouvez également voir le coup joué par votre adversaire
-        par des indications visuelles sur le plateau.
+        par des indications visuelles sur le plateau :
       </p>
       <img
         src="./src/assets/images/affichage-coup-precedent.webp"
         alt="Indication du coup précédent"
       />
-      <p>Un pion encerclé de vert indique celui posé lors du dernier coup.</p>
+      <p>
+        Un pion indiqués par un oeillet vert a été posé lors du dernier coup.
+      </p>
       <p>
         Les pions retournés lors du dernier coup sont signalés par une pastille
         verte.

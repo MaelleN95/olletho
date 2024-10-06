@@ -4,6 +4,7 @@
 @import './gameStatus.css';
 @import './gameboard.css';
 @import './rules.css';
+@import './footer.css';
 
 :root {
   --green-board: #61ac4a;

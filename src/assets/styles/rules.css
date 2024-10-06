@@ -31,8 +31,8 @@
 }
 
 #rules img {
-  width: 400px;
-  height: 400px;
+  width: 320px;
+  height: 320px;
   border: 2px solid var(--background);
   display: block;
   margin: 0 auto 1rem auto;

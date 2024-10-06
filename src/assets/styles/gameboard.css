@@ -5,7 +5,3 @@
   height: var(--board-size);
   margin: auto;
 }
-
-.cell.cell-invalid {
-  background-color: #f7a7a7;
-}
