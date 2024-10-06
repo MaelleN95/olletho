@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="footer">
+    <footer>
       <div className="social-links">
         <a
           href="https://www.linkedin.com/in/maelle-nioche/"

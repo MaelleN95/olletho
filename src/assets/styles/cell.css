@@ -92,3 +92,33 @@
   background-color: var(--blue);
   opacity: 0.75;
 }
+
+@media screen and (max-width: 1064px) {
+  .last-move::after {
+    width: 25%;
+    height: 25%;
+    border: 8px solid var(--flipped-disk);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .last-move::after {
+    border: 7px solid var(--flipped-disk);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .last-move::after {
+    width: 35%;
+    height: 35%;
+    border: 4px solid var(--flipped-disk);
+  }
+}
+
+@media screen and (max-width: 245px) {
+  .last-move::after {
+    width: 30%;
+    height: 30%;
+    border: 3px solid var(--flipped-disk);
+  }
+}

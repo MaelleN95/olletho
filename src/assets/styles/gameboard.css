@@ -5,3 +5,17 @@
   height: var(--board-size);
   margin: auto;
 }
+
+@media screen and (max-width: 1064px) {
+  #board {
+    width: var(--board-size-desktop);
+    height: var(--board-size-desktop);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  #board {
+    width: 95vw;
+    height: 95vw;
+  }
+}

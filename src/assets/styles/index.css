@@ -7,17 +7,20 @@
 @import './footer.css';
 
 :root {
-  --green-board: #61ac4a;
-  --green-hover: #82be70;
   --black-cell: black;
   --white-cell: white;
+  --green-board: #61ac4a;
+  --green-hover: #82be70;
   --valid-cell: #cade5a;
   --flipped-disk: rgb(0, 103, 0);
   --background: #242424;
   --secondary-background: #525252;
   --title--background: #717171;
   --blue: #2a8bdb;
+
   --board-size: 500px;
+  --board-size-desktop: 400px;
+  --board-size-mobile: 300px;
 }
 
 body {
@@ -30,6 +33,7 @@ body {
 main {
   max-width: 1400px;
   margin: auto;
+  padding: 1rem;
 }
 
 section {
@@ -47,4 +51,36 @@ h1 {
 #game {
   max-width: var(--board-size);
   margin: 1rem auto;
+}
+
+@media screen and (max-width: 1064px) {
+  h1 {
+    font-size: 2.8rem;
+    margin: 1rem 0;
+  }
+  #game {
+    max-width: var(--board-size-desktop);
+  }
+  main {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  h1 {
+    font-size: 2rem;
+    margin: 1rem 0 0.4rem 0;
+  }
+  #game {
+    width: 95vw;
+  }
+  section {
+    margin: 1rem 0;
+  }
 }
