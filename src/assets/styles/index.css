@@ -5,6 +5,7 @@
 @import './gameboard.css';
 @import './rules.css';
 @import './footer.css';
+@import './modal.css';
 
 :root {
   --black-cell: black;
@@ -16,7 +17,7 @@
   --background: #242424;
   --secondary-background: #525252;
   --title--background: #717171;
-  --blue: #2a8bdb;
+  --blue: #1379cc;
 
   --board-size: 500px;
   --board-size-desktop: 400px;
