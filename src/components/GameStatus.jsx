@@ -1,3 +1,4 @@
+import Confetti from './Confetti';
 import { checkWinner } from '../logic/gameLogic';
 
 function GameStatus({ player, whiteDisks, blackDisks, endGame }) {
@@ -32,6 +33,7 @@ function GameStatus({ player, whiteDisks, blackDisks, endGame }) {
               <span className="disk white-disk"></span> {whiteDisks}
             </p>
           </div>
+          <Confetti winner={winner} />
         </div>
       );
     }
