@@ -10,7 +10,7 @@ function Rules() {
         chaque couleur forme une diagonale.
       </p>
       <img
-        src="./src/assets/images/initialisation.webp"
+        src="./assets/images/initialisation.webp"
         alt="Plateau d'initialisation"
       />
 
@@ -26,7 +26,7 @@ function Rules() {
         de la couleur du joueur qui vient de jouer.
       </p>
       <img
-        src="./src/assets/images/encadrement.webp"
+        src="./assets/images/encadrement.webp"
         alt="Exemple d'encadrement de pions adverses"
       />
       <p>
@@ -35,7 +35,7 @@ function Rules() {
         a pas de limite au nombre de pions retournés lors d&apos;un tour.
       </p>
       <img
-        src="./src/assets/images/plusieurs-encadrements.webp"
+        src="./assets/images/plusieurs-encadrements.webp"
         alt="Exemple de plusieurs encadrements de pions adverses"
       />
       <h3>Indications visuelles</h3>
@@ -49,7 +49,7 @@ function Rules() {
         par des indications visuelles sur le plateau :
       </p>
       <img
-        src="./src/assets/images/affichage-coup-precedent.webp"
+        src="./assets/images/affichage-coup-precedent.webp"
         alt="Indication du coup précédent"
       />
       <p>

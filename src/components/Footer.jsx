@@ -8,7 +8,7 @@ function Footer() {
           rel="noopener noreferrer"
           title="LinkedIn"
         >
-          <img src="./src/assets/icons/linkedin.svg" alt="LinkedIn" />
+          <img src="./assets/icons/linkedin.svg" alt="LinkedIn" />
           LinkedIn
         </a>
         <a
@@ -17,7 +17,7 @@ function Footer() {
           rel="noopener noreferrer"
           title="Portfolio"
         >
-          <img src="./src/assets/icons/portfolio.svg" alt="Portfolio" />
+          <img src="./assets/icons/portfolio.svg" alt="Portfolio" />
           Portfolio
         </a>
         <a
@@ -26,7 +26,7 @@ function Footer() {
           rel="noopener noreferrer"
           title="GitHub"
         >
-          <img src="./src/assets/icons/github.svg" alt="Github" />
+          <img src="./assets/icons/github.svg" alt="Github" />
           GitHub
         </a>
       </div>
