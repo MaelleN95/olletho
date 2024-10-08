@@ -2,7 +2,7 @@
  * Initialize the board with the starting pieces
  * @returns {Array<Array<number>>} The initialized board state
  */
-export const initializeBoard = () => {
+export const initializeBoardState = () => {
   const newBoardState = Array(8)
     .fill()
     .map(() => Array(8).fill(0));

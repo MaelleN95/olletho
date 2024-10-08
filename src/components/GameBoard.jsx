@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Cell from './Cell.jsx';
 import GameStatus from './GameStatus.jsx';
 import {
-  initializeBoard,
+  initializeBoardState,
   validMoves,
   flipPieces,
   isEndGame,
@@ -12,7 +12,7 @@ import {
 
 function GameBoard() {
   // Create the initial board state
-  const [boardState, setBoardState] = useState(initializeBoard());
+  const [boardState, setBoardState] = useState(initializeBoardState());
 
   const [player, setPlayer] = useState(1); // Player 1 is black, player 2 is white
   const [lastMove, setLastMove] = useState(null);
@@ -171,6 +171,18 @@ function GameBoard() {
         )}
       </div>
       {message ? <p className="message">{message}</p> : null}
+      {lastMove && (
+        <button
+          className="restart-button"
+          onClick={() => {
+            setBoardState(initializeBoardState());
+            setLastMove(null);
+            setFlippedPieces([]);
+          }}
+        >
+          Relancer la partie
+        </button>
+      )}
     </>
   );
 }
