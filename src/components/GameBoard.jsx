@@ -178,6 +178,9 @@ function GameBoard() {
             setBoardState(initializeBoardState());
             setLastMove(null);
             setFlippedPieces([]);
+            setMessage('');
+            setEndGame(false);
+            setPlayer(1);
           }}
         >
           Relancer la partie
