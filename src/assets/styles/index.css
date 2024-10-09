@@ -11,9 +11,8 @@
   --black-cell: black;
   --white-cell: white;
   --green-board: #61ac4a;
-  --green-hover: #82be70;
-  --valid-cell: #cade5a;
-  --flipped-disk: rgb(0, 103, 0);
+  --green-hover: #a4ea8e;
+  --flipped-disk: rgba(0, 103, 0, 0.5);
   --background: #242424;
   --secondary-background: #525252;
   --title--background: #717171;
