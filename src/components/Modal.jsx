@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Modal({ title, children }) {
+function Modal({ title, ID, children }) {
   const [isVisible, setIsVisible] = useState(true);
 
   // Fonction pour fermer la modale
@@ -12,7 +12,7 @@ function Modal({ title, children }) {
   if (!isVisible) return null;
   return (
     <div className="overlay">
-      <div className="modal">
+      <div className="modal" id={ID}>
         <div className="modal-header">
           <h2>{title}</h2>
           <button

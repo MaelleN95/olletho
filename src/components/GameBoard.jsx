@@ -230,7 +230,7 @@ function GameBoard() {
         </button>
       )}
       {isModalVisible && (
-        <Modal title="Partie Sauvegardée">
+        <Modal title="Partie Sauvegardée" ID="saved-game-modal">
           <p>
             Nous avons retrouvé une partie sauvegardée. Voulez-vous la continuer
             ou démarrer une nouvelle partie ?

@@ -40,4 +40,18 @@
     width: 95vw;
     height: 95vw;
   }
+  .saved-game-modal-buttons-container {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .saved-game-modal-buttons-container button {
+    width: 100%;
+    padding: 0.6rem 0;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  #saved-game-modal h2 {
+    max-width: 150px;
+  }
 }
