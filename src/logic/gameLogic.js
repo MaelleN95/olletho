@@ -260,7 +260,7 @@ export const validMoves = (row, col, player, boardState) => {
     return {
       validMove: true,
       validMovesPositions: [row, col],
-      flippedPieces: [newFlippedPieces],
+      flippedPieces: newFlippedPieces,
     };
   } else {
     return { validMove: false };

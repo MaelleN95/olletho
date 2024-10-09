@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Cell from './Cell.jsx';
 import GameStatus from './GameStatus.jsx';
+import Modal from './Modal.jsx';
 import {
   initializeBoardState,
   validMoves,
@@ -9,8 +10,12 @@ import {
   canPlayerMakeMove,
   countDisks,
 } from '../logic/gameLogic';
+import { clearGame, saveGame, loadGame } from '../logic/saveLogic.js';
 
 function GameBoard() {
+  // Load the saved game state if it exists
+  const savedGame = loadGame();
+
   // Create the initial board state
   const [boardState, setBoardState] = useState(initializeBoardState());
 
@@ -23,6 +28,26 @@ function GameBoard() {
   const [endGame, setEndGame] = useState(false);
   const [blackDisks, setBlackDisks] = useState(2);
   const [whiteDisks, setWhiteDisks] = useState(2);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (savedGame) {
+      setIsModalVisible(true);
+    }
+  }, []);
+
+  const continueSavedGame = () => {
+    if (savedGame) {
+      // Load the saved game state
+      setBoardState(savedGame.boardState);
+      setPlayer(savedGame.player);
+      setBlackDisks(savedGame.blackDisks);
+      setWhiteDisks(savedGame.whiteDisks);
+      setLastMove(savedGame.lastMove);
+      setFlippedPieces(savedGame.flippedPieces);
+      setMessage('Partie sauvegardée récupérée !');
+    }
+  };
 
   /**
    * Execute the move for the current player
@@ -52,7 +77,7 @@ function GameBoard() {
     newBoardState[row][col] = player;
 
     // Flip the pieces
-    flipPieces(newBoardState, flippedPieces[0], player);
+    flipPieces(newBoardState, flippedPieces, player);
 
     // Update the board state
     setBoardState(newBoardState);
@@ -61,7 +86,17 @@ function GameBoard() {
     setLastMove([row, col]);
 
     // Set the flipped pieces for visual effect
-    setFlippedPieces(flippedPieces[0]);
+    setFlippedPieces(flippedPieces);
+
+    // Save the game state
+    saveGame(
+      newBoardState,
+      3 - player,
+      countDisks(newBoardState)[0],
+      countDisks(newBoardState)[1],
+      [row, col],
+      flippedPieces
+    );
 
     return { moveExecuted: true, newBoardState };
   };
@@ -127,7 +162,7 @@ function GameBoard() {
       player,
       boardState
     );
-    if (validMove) setHoverFlippedPieces(flippedPieces[0]);
+    if (validMove) setHoverFlippedPieces(flippedPieces);
   };
 
   /**
@@ -135,8 +170,34 @@ function GameBoard() {
    */
   const clearPotentialFlips = () => setHoverFlippedPieces([]);
 
+  const resetGame = () => {
+    setBoardState(initializeBoardState());
+    setLastMove(null);
+    setFlippedPieces([]);
+    setMessage('Nouvelle partie !');
+    setEndGame(false);
+    setPlayer(1);
+    setBlackDisks(2);
+    setWhiteDisks(2);
+  };
+
+  const startNewGame = () => {
+    resetGame();
+    clearGame();
+  };
+
   return (
     <>
+      {isModalVisible && (
+        <Modal title="Partie Sauvegardée">
+          <p>
+            Nous avons retrouvé une partie sauvegardée. Voulez-vous la continuer
+            ou démarrer une nouvelle partie ?
+          </p>
+          <button onClick={continueSavedGame}>Continuer la partie</button>
+          <button onClick={startNewGame}>Nouvelle partie</button>
+        </Modal>
+      )}
       <GameStatus
         player={player}
         endGame={endGame}
@@ -172,14 +233,7 @@ function GameBoard() {
       </div>
       {message ? <p className="message">{message}</p> : null}
       {lastMove && (
-        <button
-          className="restart-button"
-          onClick={() => {
-            setBoardState(initializeBoardState());
-            setLastMove(null);
-            setFlippedPieces([]);
-          }}
-        >
+        <button className="restart-button" onClick={startNewGame}>
           Relancer la partie
         </button>
       )}
