@@ -47,6 +47,7 @@ function GameBoard() {
       setFlippedPieces(savedGame.flippedPieces);
       setMessage('Partie sauvegardée récupérée !');
     }
+    setIsModalVisible(false);
   };
 
   /**
@@ -184,20 +185,11 @@ function GameBoard() {
   const startNewGame = () => {
     resetGame();
     clearGame();
+    setIsModalVisible(false);
   };
 
   return (
     <>
-      {isModalVisible && (
-        <Modal title="Partie Sauvegardée">
-          <p>
-            Nous avons retrouvé une partie sauvegardée. Voulez-vous la continuer
-            ou démarrer une nouvelle partie ?
-          </p>
-          <button onClick={continueSavedGame}>Continuer la partie</button>
-          <button onClick={startNewGame}>Nouvelle partie</button>
-        </Modal>
-      )}
       <GameStatus
         player={player}
         endGame={endGame}
@@ -233,9 +225,25 @@ function GameBoard() {
       </div>
       {message ? <p className="message">{message}</p> : null}
       {lastMove && (
-        <button className="restart-button" onClick={startNewGame}>
+        <button className="button restart-button" onClick={startNewGame}>
           Relancer la partie
         </button>
+      )}
+      {isModalVisible && (
+        <Modal title="Partie Sauvegardée">
+          <p>
+            Nous avons retrouvé une partie sauvegardée. Voulez-vous la continuer
+            ou démarrer une nouvelle partie ?
+          </p>
+          <div className="saved-game-modal-buttons-container">
+            <button className="button" onClick={continueSavedGame}>
+              Continuer la partie
+            </button>
+            <button className="button" onClick={startNewGame}>
+              Nouvelle partie
+            </button>
+          </div>
+        </Modal>
       )}
     </>
   );

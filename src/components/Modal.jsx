@@ -11,11 +11,15 @@ function Modal({ title, children }) {
   // Ne pas afficher la modale si elle n'est pas visible
   if (!isVisible) return null;
   return (
-    <div className="overlay" onClick={closeModal}>
+    <div className="overlay">
       <div className="modal">
         <div className="modal-header">
           <h2>{title}</h2>
-          <button className="close-modal-button" onClick={closeModal}>
+          <button
+            className="close-modal-button"
+            onClick={closeModal}
+            title="Fermer la fenêtre de dialogue"
+          >
             &times;
           </button>
         </div>
