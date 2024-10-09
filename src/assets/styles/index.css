@@ -11,9 +11,8 @@
   --black-cell: black;
   --white-cell: white;
   --green-board: #61ac4a;
-  --green-hover: #82be70;
-  --valid-cell: #cade5a;
-  --flipped-disk: rgb(0, 103, 0);
+  --green-hover: #a4ea8e;
+  --flipped-disk: rgba(0, 103, 0, 0.5);
   --background: #242424;
   --secondary-background: #525252;
   --title--background: #717171;
@@ -47,6 +46,34 @@ h1 {
   letter-spacing: -0.06em;
   font-weight: 500;
   margin: 1.5rem 0;
+}
+
+.button {
+  color: white;
+  background: var(--secondary-background);
+  border: 1px solid rgba(255, 255, 255, 0.619);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.137);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: linear-gradient(
+    to bottom,
+    rgba(82, 82, 82, 0.144),
+    rgba(255, 255, 255, 0.247),
+    rgba(225, 225, 225, 0.39)
+  );
+  box-shadow: 0 3px rgba(255, 255, 255, 0.847);
+  transform: translateY(-3px);
+}
+
+.button:active {
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
 #game {
