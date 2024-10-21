@@ -48,10 +48,17 @@ function Rules() {
         De plus, vous pouvez également voir le coup joué par votre adversaire
         par des indications visuelles sur le plateau :
       </p>
-      <img
-        src="./assets/images/affichage-coup-precedent.webp"
-        alt="Indication du coup précédent"
-      />
+      <div>
+        <img
+          src="./assets/images/affichage-coup-precedent-blanc.webp"
+          alt="Indication du coup précédent pour les joueurs aux jetons blancs"
+        />
+        <img
+          src="./assets/images/affichage-coup-precedent-noir.webp"
+          alt="Indication du coup précédent pour les joueurs aux jetons noirs"
+        />
+      </div>
+
       <p>
         Un pion indiqués par un oeillet vert a été posé lors du dernier coup.
       </p>
