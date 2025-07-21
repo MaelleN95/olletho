@@ -28,7 +28,7 @@ footer {
 }
 
 .social-links a:hover {
-  transform: translateY(-7px);
+  transform: translateY(-3px);
   text-decoration: underline;
 }
 
@@ -39,7 +39,7 @@ footer p {
 }
 
 footer img {
-  height: 35px;
+  height: 55px;
   padding-bottom: 8px;
 }
 

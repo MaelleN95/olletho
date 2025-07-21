@@ -1,4 +1,7 @@
+import kojiLogo from '../assets/icons/koji-logo.png'; 
+
 function Footer() {
+  
   return (
     <footer>
       <div className="social-links">
@@ -12,13 +15,13 @@ function Footer() {
           LinkedIn
         </a>
         <a
-          href="https://maelle-nioche.vercel.app/"
+          href="https://koji-dev.fr/"
           target="_blank"
           rel="noopener noreferrer"
           title="Portfolio"
         >
-          <img src="./assets/icons/portfolio.svg" alt="Portfolio" />
-          Portfolio
+          <img src={kojiLogo} alt="Logo de Koji" />
+          Développé par Kōji
         </a>
         <a
           href="https://github.com/MaelleN95/olletho"
@@ -31,7 +34,7 @@ function Footer() {
         </a>
       </div>
       <p>
-        Olletho &copy; {new Date().getFullYear()}
+        Olletho &copy; {new Date().getFullYear()} - Développé par Kōji
         <br />
         Tous droits réservés
       </p>
